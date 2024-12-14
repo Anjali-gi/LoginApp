@@ -10,7 +10,8 @@ public class InputValidation {
     public boolean validateUser(User user) {
     if(user.getCountry().equals("India")){
         return true;
-    } return false;
+    }
+    return false;
 
     }
 }
