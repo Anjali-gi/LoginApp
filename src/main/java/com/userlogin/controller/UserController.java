@@ -2,6 +2,7 @@ package com.userlogin.controller;
 
 import com.userlogin.entity.User;
 import com.userlogin.service.UserService;
+import com.userlogin.validation.InputValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private InputValidation inputValidation;
+
 
 	// GET mapping for login page
 	@GetMapping("/")
@@ -46,10 +50,19 @@ public class UserController {
 	// POST mapping for signup
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute User user, Model model) {
+
+		boolean isValid=inputValidation.validateUser(user);
+
+
+
 		userService.saveUser(user); // Save the user in the database
 		model.addAttribute("message", "User registered successfully!"); // Success message
 		return "login"; // Redirect to login page
 	}
+
+
+
+
 
 	//private String url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjav_8SkShQnVJXRKQVgAGxScQ1ptL6UREzA&s";
 	//private String url="/images/john.jpg";
@@ -66,7 +79,6 @@ public class UserController {
 
 		User user = userService.findById(id).orElse(null); // Get user by ID
 		if (user != null) {
-			user.setImgAddress("../../../../upload-dir/"+user.getUsername()+".jpg");
 			model.addAttribute("user", user);
 
 
@@ -101,12 +113,13 @@ public class UserController {
 				existingUser.setLastName(user.getLastName());
 				existingUser.setEmail(user.getEmail());
 				existingUser.setPassword(user.getPassword());
-//				existingUser.setProfileImage(user.getProfileImage());// Consider encoding the password
+				existingUser.setGender(user.getGender());
+				existingUser.setCountry(user.getCountry());
+				existingUser.setAddress(user.getAddress());
+				existingUser.setPhoneNumber(user.getPhoneNumber());
+				existingUser.setDob(user.getDob()  );
 
-				// Handle profile image upload
-//				if (!file.isEmpty()) {
-//					existingUser.setProfileImage(file.getBytes()); // Convert file to byte array
-//				}
+
 
 				// Save updated user
 				userService.saveUser(existingUser);

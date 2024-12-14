@@ -82,6 +82,13 @@
 			color: red;
 			font-size: 0.9em;
 		}
+
+
+		div {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			}
 	</style>
 
 
@@ -150,6 +157,7 @@
 	</div>
 	<div>
 		<label>Gender:</label>
+
 		<select th:value="${user.gender}" name="gender" required>
 			<option value="" disabled>Select your gender</option>
 			<option value="Male">Male</option>
@@ -157,6 +165,7 @@
 			<option value="Other">Other</option>
 		</select>
 	</div>
+
 	<div>
 		<label>Country:</label>
 		<select th:value="${user.country}" name="country" required>

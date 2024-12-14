@@ -2,6 +2,7 @@ package com.userlogin.entity;
 
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 
 @Entity
@@ -11,14 +12,12 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String password;
 	private String email;
-
-	//private String profile;
-
 	private String gender;
 	private String country;
 	private String address;
